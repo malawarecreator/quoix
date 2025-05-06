@@ -9,7 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
+    "@types/axios": "^0.14.4",
     "@types/mongodb": "^4.0.7",
+    "@vercel/analytics": "^1.5.0",
+    "axios": "^1.9.0",
     "mongodb": "^6.16.0",
     "next": "15.3.1",
     "react": "^19.0.0",
