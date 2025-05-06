@@ -1,168 +1,257 @@
-.page {
-  --gray-rgb: 0, 0, 0;
-  --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
-  --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
+/* post.module.css */
 
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-
-  display: grid;
-  grid-template-rows: 20px 1fr 20px;
-  align-items: center;
-  justify-items: center;
-  min-height: 100svh;
-  padding: 80px;
-  gap: 64px;
-  font-family: var(--font-geist-sans);
-}
-
-@media (prefers-color-scheme: dark) {
-  .page {
-    --gray-rgb: 255, 255, 255;
-    --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
-    --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
-
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-  }
-}
-
-.main {
+/* Container for the entire page */
+.postPage {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  grid-row-start: 2;
+  gap: 2rem; /* Space between major sections (heading, form, response) */
+  width: 100%;
+  max-width: 64rem; /* Limit content width on larger screens */
+  margin: 2rem auto; /* Center the container and add top/bottom margin */
+  padding: 2rem;
+  background-color: var(--background, #1e1e1e); /* Use CSS variable or fallback */
+  color: var(--foreground, #ffffff); /* Use CSS variable or fallback */
+  border-radius: 0.75rem; /* Rounded corners for the container */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow */
 }
 
-.main ol {
-  font-family: var(--font-geist-mono);
-  padding-left: 0;
-  margin: 0;
-  font-size: 14px;
-  line-height: 24px;
-  letter-spacing: -0.01em;
-  list-style-position: inside;
+/* Heading style */
+.postPage h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--heading-color, #0070f3); /* Use CSS variable or fallback */
+  margin-bottom: 1rem; /* Space below the heading */
 }
 
-.main li:not(:last-of-type) {
-  margin-bottom: 8px;
+/* Form styles */
+.postForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Space between form fields */
 }
 
-.main code {
-  font-family: inherit;
-  background: var(--gray-alpha-100);
-  padding: 2px 4px;
-  border-radius: 4px;
+/* Individual form field container */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Space between label and input */
+}
+
+/* Input field styles */
+.field label {
+  font-size: 1rem;
   font-weight: 600;
+  color: var(--label-color, #cccccc); /* Use CSS variable or fallback */
 }
 
-.ctas {
-  display: flex;
-  gap: 16px;
+.field input {
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color, #333); /* Use CSS variable or fallback */
+  background: var(--input-background, #2a2a2a); /* Use CSS variable or fallback */
+  color: var(--input-color, #ffffff); /* Use CSS variable or fallback */
+  transition: border-color 0.2s, box-shadow 0.2s; /* Smooth transition for focus effect */
 }
 
-.ctas a {
-  appearance: none;
-  border-radius: 128px;
-  height: 48px;
-  padding: 0 20px;
+.field input:focus {
+  outline: none; /* Remove default outline */
+  border-color: var(--focus-border-color, #0070f3); /* Highlight border on focus */
+  box-shadow: 0 0 0 3px var(--focus-shadow-color, rgba(0, 112, 243, 0.3)); /* Add a subtle glow */
+}
+
+/* Code Editor wrapper */
+.editorWrapper {
+  width: 100%;
+  min-height: 400px; /* Minimum height for the editor */
+  height: 60vh; /* Height relative to viewport height */
+  max-height: 700px; /* Maximum height for the editor */
+  border: 1px solid var(--border-color, #333); /* Border around the editor */
+  border-radius: 0.5rem;
+  overflow: hidden; /* Ensure editor content stays within bounds */
+  /* Monaco Editor handles its own background/theme based on the 'theme' prop */
+}
+
+/* Submit button styles */
+.submitBtn {
+  padding: 0.75rem 1.5rem; /* Increased padding for better touch target */
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--button-text-color, #ffffff); /* Use CSS variable or fallback */
+  background-color: var(--button-primary, #0070f3); /* Use CSS variable or fallback */
   border: none;
-  border: 1px solid transparent;
-  transition:
-    background 0.2s,
-    color 0.2s,
-    border-color 0.2s;
+  border-radius: 0.5rem;
   cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s; /* Smooth transition for hover/active */
+  margin-top: 1rem; /* Space above the button */
+}
+
+.submitBtn:hover {
+  background-color: var(--button-primary-hover, #005bb5); /* Darker color on hover */
+}
+
+.submitBtn:active {
+  opacity: 0.8; /* Slightly reduce opacity when clicked */
+}
+
+/* Response box styles */
+.responseBox {
+  margin-top: 1.5rem; /* Space above the response box */
+  padding: 1rem;
+  border: 1px solid var(--border-color, #333); /* Border around the box */
+  border-radius: 0.5rem;
+  background: var(--response-background, #2a2a2a); /* Use CSS variable or fallback */
+  color: var(--response-text-color, #ffffff); /* Use CSS variable or fallback */
+  font-family: var(--font-geist-mono, monospace); /* Use a monospace font */
+  white-space: pre-wrap; /* Preserve line breaks and wrap text */
+  word-break: break-word; /* Prevent long words from overflowing */
+}
+
+/* Add specific styles for success/error messages */
+.responseBox.success {
+  border-color: var(--success-border, #4CAF50);
+  background-color: var(--success-background, #e8f5e9);
+  color: var(--success-text, #1b5e20);
+}
+
+.responseBox.error {
+  border-color: var(--error-border, #F44336);
+  background-color: var(--error-background, #ffebee);
+  color: var(--error-text, #b71c1c);
+}
+
+
+/* Responsive tweaks for smaller screens */
+@media (max-width: 768px) {
+  .postPage {
+    padding: 1rem; /* Reduce padding on smaller screens */
+    gap: 1.5rem;
+  }
+
+  .postPage h1 {
+    font-size: 2rem; /* Reduce heading size */
+  }
+
+  .postForm {
+    gap: 1rem; /* Reduce gap in form */
+  }
+
+  .field input {
+    padding: 0.6rem; /* Slightly smaller padding */
+  }
+
+  .editorWrapper {
+    height: 50vh; /* Adjust editor height */
+    min-height: 300px; /* Adjust min height */
+  }
+
+  .submitBtn {
+    font-size: 1rem; /* Reduce button font size */
+    padding: 0.6rem 1.2rem; /* Adjust button padding */
+  }
+
+  .responseBox {
+    padding: 0.8rem; /* Adjust response box padding */
+  }
+}
+
+/* page.module.css */
+
+/* Styles for the main page container */
+.page {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 500;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically (if container has height) */
+  min-height: 100vh; /* Make the container at least the height of the viewport */
+  padding: 2rem; /* Add some padding around the content */
+  background-color: var(--background, #121212); /* Use CSS variable or fallback */
+  color: var(--foreground, #ffffff); /* Use CSS variable or fallback */
+  font-family: var(--font-geist-sans, sans-serif); /* Use CSS variable or fallback font */
+  text-align: center; /* Center text within the container */
 }
 
-a.primary {
-  background: var(--foreground);
-  color: var(--background);
-  gap: 8px;
+/* Styles for the main heading */
+.page h1 {
+  font-size: 6rem; /* Large font size for the title */
+  margin-bottom: 1rem; /* Space below the heading */
+  color: var(--heading-color, #0070f3); /* Example heading color */
 }
 
-a.secondary {
-  border-color: var(--gray-alpha-200);
-  min-width: 158px;
+/* Styles for the paragraph */
+.page p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem; /* Space below the paragraph */
+  color: var(--text-color, #cccccc); /* Example text color */
 }
 
-.footer {
-  grid-row-start: 3;
+/* Container for the buttons */
+.buttonContainer {
   display: flex;
-  gap: 24px;
+  flex-direction: column; /* Stack buttons vertically by default */
+  gap: 1rem; /* Space between buttons */
+  width: 100%; /* Take full width of parent */
+  max-width: 300px; /* Limit max width of the button column */
 }
 
-.footer a {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+/* Styles for the buttons */
+.page button {
+  padding: 0.75rem 1.5rem; /* Padding inside the button */
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--button-text-color, #ffffff); /* Use CSS variable or fallback */
+  background-color: var(--button-primary, #0070f3); /* Use CSS variable or fallback */
+  border: none;
+  border-radius: 30px; /* Rounded button shape */
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s; /* Smooth transitions */
+  text-decoration: none; /* Remove underline from link */
+  display: inline-block; /* Ensure padding and width work correctly */
+  text-align: center; /* Center text inside the button */
+  width: 100%; /* Make buttons take full width of their container */
 }
 
-.footer img {
-  flex-shrink: 0;
+.page button:hover {
+  background-color: var(--button-primary-hover, #005bb5); /* Darker color on hover */
 }
 
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
-  }
-
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
-  }
-
-  .footer a:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
+.page button:active {
+  opacity: 0.8; /* Slightly reduce opacity when clicked */
 }
 
-@media (max-width: 600px) {
-  .page {
-    padding: 32px;
-    padding-bottom: 80px;
-  }
-
-  .main {
-    align-items: center;
-  }
-
-  .main ol {
-    text-align: center;
-  }
-
-  .ctas {
-    flex-direction: column;
-  }
-
-  .ctas a {
-    font-size: 14px;
-    height: 40px;
-    padding: 0 16px;
-  }
-
-  a.secondary {
-    min-width: auto;
-  }
-
-  .footer {
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-  }
+/* Style for the link inside the button */
+.page button a {
+    color: inherit; /* Inherit color from the button */
+    text-decoration: none; /* Remove underline */
+    display: block; /* Make the link fill the button */
+    padding: 0.75rem 1.5rem; /* Match button padding */
+    margin: -0.75rem -1.5rem; /* Negative margin to make link clickable area larger */
 }
 
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .page h1 {
+    font-size: 8rem; /* Larger heading on larger screens */
   }
+
+  .page p {
+    font-size: 1.8rem;
+  }
+
+  .buttonContainer {
+    flex-direction: row; /* Arrange buttons horizontally on larger screens */
+    max-width: none; /* Remove max width constraint */
+    justify-content: center; /* Center the row of buttons */
+  }
+
+  .buttonContainer button {
+      width: auto; /* Allow buttons to size based on content + padding */
+      min-width: 150px; /* Ensure a minimum width */
+  }
+
+    .page button a {
+        padding: 0; /* Remove padding from link when button has padding */
+        margin: 0; /* Remove negative margin */
+    }
 }
